@@ -2,7 +2,7 @@ version: "3.5"
 services:
   sheba_rilac_pms_admin_service:
     container_name: sheba_rilac_pms_admin_service
-    image: rosebaysystems/pms_admin_service_sheba_rilac:12
+    # image: rosebaysystems/pms_admin_service_sheba_rilac:12
     build:
       context: .  # Refers to the current directory where the Dockerfile is located
       dockerfile: Dockerfile
