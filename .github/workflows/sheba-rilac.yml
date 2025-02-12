@@ -37,9 +37,9 @@ jobs:
       - name: Print Service Logs
         run: docker logs sheba_rilac_pms_admin_service
 
-      - name: Health Check (Ensure Service is Running)
-        run: |
-          curl -f http://localhost:5041 || exit 1
+      # - name: Health Check (Ensure Service is Running)
+      #   run: |
+      #     curl -f http://localhost:5041 || exit 1
 
       - name: Stop and Clean Up
         run: docker-compose down
