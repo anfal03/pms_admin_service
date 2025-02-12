@@ -13,19 +13,19 @@ import fs from 'fs'
 async function bootstrap() {
 
     //read ssl config....
-    const httpsOptions = {
-      key: fs.readFileSync('./ssl/keyfile-encrypted.key'),
-      cert: fs.readFileSync('./ssl/97580e4c070d1482.crt'),
-      ca: [ fs.readFileSync('./ssl/gd1.crt')],
-      passphrase: "Mlajan@123##" 
-    }
+    // const httpsOptions = {
+    //   key: fs.readFileSync('./ssl/keyfile-encrypted.key'),
+    //   cert: fs.readFileSync('./ssl/97580e4c070d1482.crt'),
+    //   ca: [ fs.readFileSync('./ssl/gd1.crt')],
+    //   passphrase: "Mlajan@123##" 
+    // }
 
   const NestFactoryOptions = {logger:  nestwinstonLog}
 
-  if(process.env.SSL == 'true') { 
-    //enable ssl..
-    NestFactoryOptions['httpsOptions'] = httpsOptions
-  }
+  // if(process.env.SSL == 'true') { 
+  //   //enable ssl..
+  //   NestFactoryOptions['httpsOptions'] = httpsOptions
+  // }
 
   const app = await NestFactory.create<NestExpressApplication>(AppModule,NestFactoryOptions)
 
