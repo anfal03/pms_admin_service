@@ -10,7 +10,7 @@ services:
     ports:
       - 5041:5001
     volumes:
-      - /home/ubuntu/demo-env/sheba_rilac_pms_admin_service/.env.enc:/nestjs_core/.env.enc
+      # - /home/ubuntu/demo-env/sheba_rilac_pms_admin_service/.env.enc:/nestjs_core/.env.enc
       - /etc/localtime:/etc/localtime:ro
     restart: unless-stopped
 
