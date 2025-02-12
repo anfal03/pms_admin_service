@@ -31,7 +31,7 @@ RUN npm run build
 # COPY decrypt-env-into-new-file.mjs ./
 # COPY .env.enc ./
 
-# COPY locales ./locales
+COPY locales ./locales
 
 # COPY ssl ./ssl
 
