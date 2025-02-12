@@ -2,9 +2,9 @@
 
  on:
   push:
-    branches: [ sheba-rilac ]
+    branches: [ main ]
   pull_request:
-    branches: [ sheba-rilac ]
+    branches: [ main ]
 
  jobs:
 
