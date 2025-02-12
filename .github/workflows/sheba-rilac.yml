@@ -29,10 +29,13 @@ jobs:
       - name: Build and Run Docker Compose (Test Locally)
         run: |
           docker-compose up -d --build
-          sleep 10  # Wait for services to start
+          sleep 20  # Increased time for service to start
 
-      - name: Check Running Containers
+      - name: Debug Running Containers
         run: docker ps -a
+
+      - name: Print Service Logs
+        run: docker logs sheba_rilac_pms_admin_service
 
       - name: Health Check (Ensure Service is Running)
         run: |
