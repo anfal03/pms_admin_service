@@ -1,41 +1,38 @@
- name: Docker Image CI
+name: Docker Compose CI
 
- on:
+on:
   push:
-    branches: [ main ]
+    branches:
+      - main
   pull_request:
-    branches: [ main ]
 
- jobs:
-
-  build:
-
+jobs:
+  build-and-test:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
 
-      - name: Check Out Repo 
-        uses: actions/checkout@v2
+      - name: Set Up Docker Buildx
+        uses: docker/setup-buildx-action@v3
 
-      - name: Login to Docker Hub
-        uses: docker/login-action@v1
+      - name: Login to DockerHub (Optional)
+        uses: docker/login-action@v3
         with:
-          username: ${{ secrets.DOCKER_HUB_USERNAME }}
-          password: ${{ secrets.DOCKER_HUB_PASSWORD }}
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: Set up Docker Buildx
-        id: buildx
-        uses: docker/setup-buildx-action@v1
+      - name: Build and Run Docker Compose
+        run: |
+          docker-compose up -d --build
+          sleep 10  # Wait for services to start
 
-      - name: Build and push
-        id: docker_build
-        uses: docker/build-push-action@v2
-        with:
-          context: ./
-          file: ./Dockerfile
-          push: true
-          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/pms_admin_service_sheba_rilac:${{github.run_number}} 
+      - name: Check Running Containers
+        run: docker ps -a
 
-      - name: Image digest
-        run: echo ${{ steps.docker_build.outputs.digest }}
-## end
+      - name: Run Container Health Check (Optional)
+        run: curl -f http://localhost:5041 || exit 1
+
+      - name: Stop and Clean Up
+        run: docker-compose down
